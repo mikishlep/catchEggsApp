@@ -56,7 +56,7 @@ nav {
 hr {
     border: none;
     height: 1px;
-    background-color: #BDBDBD;
+    background-color: #dedede;
 }
 
 button.nav-btns:active {
