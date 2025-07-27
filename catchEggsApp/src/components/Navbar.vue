@@ -1,9 +1,13 @@
 <script setup>
+import { hapticFeedback } from '@telegram-apps/sdk';
+
 // Вибрируем жоско
-function vibrate() {
-    if (window.Telegram?.WebApp?.vibrate) {
-        window.Telegram.WebApp.vibrate([200]);
-    }
+function vibrateMedium() {
+  if (hapticFeedback.impactOccurred.isAvailable()) {
+    hapticFeedback.impactOccurred('medium')
+  } else {
+    console.log('Haptic feedback not supported')
+  }
 }
 </script>
 
@@ -11,13 +15,13 @@ function vibrate() {
 <nav>
     <hr></hr>
     <div class="nav-bottom">
-        <button class="nav-btns" @click="vibrate">
+        <button class="nav-btns" @click="vibrateMedium">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none">
                 <path d="M12.5509 1H9.44885C6.82396 1 5.51151 1 4.48135 1.49743C3.57433 1.9354 2.82074 2.63709 2.31926 3.51059C1.7497 4.5027 1.65619 5.81181 1.46918 8.43002L1.22314 11.8745C1.1025 13.5634 2.44013 15 4.13335 15C4.99924 15 5.8204 14.6154 6.37473 13.9502L6.74989 13.5C7.09305 13.0882 7.26463 12.8823 7.46 12.7159C7.86957 12.3672 8.36539 12.1349 8.89553 12.0436C9.14841 12 9.41642 12 9.95245 12H12.0473C12.5834 12 12.8514 12 13.1043 12.0436C13.6344 12.1349 14.1302 12.3672 14.5398 12.7159C14.7351 12.8823 14.9068 13.0882 15.2499 13.5L15.6251 13.9502C16.1794 14.6154 17.0005 15 17.8664 15C19.5597 15 20.8973 13.5634 20.7766 11.8745L20.5306 8.43002C20.3436 5.81181 20.2501 4.5027 19.6805 3.51059C19.179 2.63709 18.4254 1.9354 17.5184 1.49743C16.4883 1 15.1758 1 12.5509 1Z" fill="#BDBDBD"/>
                 <path d="M4.99989 7H8.99989M6.99989 5V9M13.9999 8H14.0099M16.9999 6H17.0099M9.44885 1H12.5509C15.1758 1 16.4883 1 17.5184 1.49743C18.4254 1.9354 19.179 2.63709 19.6805 3.51059C20.2501 4.5027 20.3436 5.81181 20.5306 8.43002L20.7766 11.8745C20.8973 13.5634 19.5597 15 17.8664 15C17.0005 15 16.1794 14.6154 15.6251 13.9502L15.2499 13.5C14.9068 13.0882 14.7351 12.8823 14.5398 12.7159C14.1302 12.3672 13.6344 12.1349 13.1043 12.0436C12.8514 12 12.5834 12 12.0473 12H9.95245C9.41642 12 9.14841 12 8.89553 12.0436C8.36539 12.1349 7.86957 12.3672 7.46 12.7159C7.26463 12.8823 7.09305 13.0882 6.74989 13.5L6.37473 13.9502C5.8204 14.6154 4.99924 15 4.13335 15C2.44013 15 1.1025 13.5634 1.22314 11.8745L1.46918 8.43002C1.65619 5.81181 1.7497 4.5027 2.31926 3.51059C2.82074 2.63709 3.57433 1.9354 4.48135 1.49743C5.51151 1 6.82396 1 9.44885 1Z" stroke="#BDBDBD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
-        <button class="nav-btns" @click="vibrate">
+        <button class="nav-btns" @click="vibrateMedium">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M9.99997 13C6.8299 13 4.01077 14.5306 2.21597 16.906C1.82968 17.4172 1.63653 17.6728 1.64285 18.0183C1.64773 18.2852 1.81533 18.6219 2.02534 18.7867C2.29716 19 2.67384 19 3.4272 19H16.5727C17.3261 19 17.7028 19 17.9746 18.7867C18.1846 18.6219 18.3522 18.2852 18.3571 18.0183C18.3634 17.6728 18.1703 17.4172 17.784 16.906C15.9892 14.5306 13.17 13 9.99997 13Z" fill="#BDBDBD"/>
                 <path d="M9.99997 10C12.4853 10 14.5 7.98528 14.5 5.5C14.5 3.01472 12.4853 1 9.99997 1C7.51469 1 5.49997 3.01472 5.49997 5.5C5.49997 7.98528 7.51469 10 9.99997 10Z" fill="#BDBDBD"/>
@@ -42,12 +46,24 @@ nav {
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
     justify-items: center;
-    padding: 10px 0 30px 0;
+    padding: 10px 0 45px 0;
 }
 
 hr {
     border: none;
     height: 1px;
-    background-color: #c1c1c1;
+    background-color: #BDBDBD;
+}
+
+button.nav-btns:active {
+    background: transparent;
+    filter: none;
+    box-shadow: none;
+    transform: none;
+}
+
+button.nav-btns {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
 }
 </style>
