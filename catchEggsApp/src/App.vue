@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue';
 import MainMenu from './components/MainMenu.vue';
 
 onMounted(() => {
