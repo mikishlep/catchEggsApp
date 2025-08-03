@@ -6,11 +6,9 @@
     <section class="main-wrapper">
         <div class="game-list__container">
             <div class="game-point">
-                <div class="game-image">
-                    <!-- здесь будет изображение игры -->
-                </div>
+                <div class="game-image"></div>
                 <div class="game-info">
-                    <h2 class="game-name">Волк ловит яйца</h2>
+                    <h2 class="game-name">Ловля яиц</h2>
                     <p class="game-description">Ловите яйца, летящие с неба и получайте очки, которые вы сможете обменять на промокоды и скидки.</p>
                     <button class="game-start">
                         <h3>Играть</h3>
@@ -84,5 +82,12 @@
 .game-info {
     display: grid;
     gap: 10px;
+}
+
+.game-image {
+    background-image: url('https://play-lh.googleusercontent.com/6xTxUFnxkuTDINGbCiB7gvUoZ040NEVLeUxfLBrFlC2qGWPCypX9_EbZj1MFHEUpHA');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 </style>
