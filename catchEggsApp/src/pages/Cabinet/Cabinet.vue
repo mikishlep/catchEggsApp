@@ -1,5 +1,6 @@
 <script setup>
-
+import SettingItem from '../../components/SettingItem.vue';
+import icons from '@/assets/icons';
 </script>
 
 <template>
@@ -9,6 +10,45 @@
                 <div class="person-info">
                     <div class="person-photo"></div>
                     <div class="person-name">Глеб Цейлонский</div>
+                </div>
+            </div>
+
+            <div class="cabinet-btns">
+                <div class="cabinet-btns__container">
+                    <SettingItem 
+                        title="Скидки"
+                        :icon="icons.user"
+                        :arrow="icons.arrow"
+                        :isFirst="true"
+                        :isLast="true"
+                        iconBackground="#dedede"
+                        @click="$router.push('/cabinet/promocodes')"
+                    />
+                </div>
+                <div class="cabinet-btns__container">
+                    <SettingItem 
+                        title="Промокоды"
+                        :icon="icons.user"
+                        :arrow="icons.arrow"
+                        :isFirst="true"
+                        iconBackground="#dedede"
+                        @click="$router.push('/cabinet/promocodes')"
+                    />
+                    <SettingItem 
+                        title="Промокоды"
+                        :icon="icons.user"
+                        :arrow="icons.arrow"
+                        iconBackground="#dedede"
+                        @click="$router.push('/cabinet/promocodes')"
+                    />
+                    <SettingItem 
+                        title="Промокоды"
+                        :icon="icons.user"
+                        :arrow="icons.arrow"
+                        :isLast="true"
+                        iconBackground="#dedede"
+                        @click="$router.push('/cabinet/promocodes')"
+                    />
                 </div>
             </div>
         </div>
@@ -29,6 +69,7 @@
     border-radius: 16px;
     background-color: var(--main-color);
     position: relative;
+    box-shadow: var(--main-shadow);
 }
 
 .person-info {
@@ -56,5 +97,19 @@
     font-weight: 600;
     font-size: 1.2rem;
     color: #fff;
+}
+
+.cabinet-container {
+    display: grid;
+    gap: 20px
+}
+
+.cabinet-btns {
+    display: grid;
+    gap: 20px;
+}
+
+.cabinet-btns__container {
+    box-shadow: 0 0 10px rgba(49, 49, 49, 0.08);
 }
 </style>
