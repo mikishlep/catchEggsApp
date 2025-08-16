@@ -12,7 +12,7 @@ const props = defineProps({
 
 function handleClick() {
     emit('click');
-};
+}
 </script>
 
 <template>
