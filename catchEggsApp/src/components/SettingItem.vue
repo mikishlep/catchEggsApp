@@ -16,7 +16,7 @@ function handleClick() {
 </script>
 
 <template>
-    <div class="cabinet-block" :class="{ 'first': props.isFirst, 'last': props.isLast }" @click="handleClick">
+    <div class="cabinet-block" :class="{ 'first': props.isFirst, 'last': props.isLast }" @click="handleClick" tabindex="0">
         <div class="cabinet-item">
             <div class="cabinet-item__left">
                 <div class="cabinet-item__icon-wrapper" :style="{ 'backgroundColor': props.iconBackground }">

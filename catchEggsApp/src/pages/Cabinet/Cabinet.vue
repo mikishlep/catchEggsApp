@@ -1,6 +1,15 @@
 <script setup>
 import SettingItem from '../../components/SettingItem.vue';
 import icons from '@/assets/icons';
+
+// Сторонние сайты
+function openExternal(link) {
+  if (window.Telegram?.WebApp?.openLink) {
+    window.Telegram.WebApp.openLink(link);
+  } else {
+    window.open(link, '_blank');
+  }
+}
 </script>
 
 <template>
@@ -16,7 +25,7 @@ import icons from '@/assets/icons';
             <div class="cabinet-btns">
                 <div class="cabinet-btns__container">
                     <SettingItem 
-                        title="Скидки"
+                        title="Скидки и промокоды"
                         :icon="icons.user"
                         :arrow="icons.arrow"
                         :isFirst="true"
@@ -27,27 +36,30 @@ import icons from '@/assets/icons';
                 </div>
                 <div class="cabinet-btns__container">
                     <SettingItem 
-                        title="Промокоды"
+                        title="Главреклама"
                         :icon="icons.user"
                         :arrow="icons.arrow"
                         :isFirst="true"
                         iconBackground="#dedede"
-                        @click="$router.push('/cabinet/promocodes')"
+                        @click="openExternal('https://glavreklamant.ru')"
                     />
                     <SettingItem 
-                        title="Промокоды"
+                        title="Главвизитка"
                         :icon="icons.user"
                         :arrow="icons.arrow"
                         iconBackground="#dedede"
-                        @click="$router.push('/cabinet/promocodes')"
+                        @click="openExternal('https://glavvizitka.ru')"
                     />
+                </div>
+                <div class="cabinet-btns__container">
                     <SettingItem 
-                        title="Промокоды"
+                        title="Настройки"
                         :icon="icons.user"
                         :arrow="icons.arrow"
+                        :isFirst="true"
                         :isLast="true"
                         iconBackground="#dedede"
-                        @click="$router.push('/cabinet/promocodes')"
+                        @click="$router.push('/cabinet/settings')"
                     />
                 </div>
             </div>
