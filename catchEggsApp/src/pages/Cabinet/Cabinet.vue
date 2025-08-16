@@ -111,5 +111,7 @@ import icons from '@/assets/icons';
 
 .cabinet-btns__container {
     box-shadow: 0 0 10px rgba(49, 49, 49, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
 }
 </style>

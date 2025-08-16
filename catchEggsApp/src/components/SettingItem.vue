@@ -57,13 +57,13 @@ function handleClick() {
 }
 
 .cabinet-block.first {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 12px;
+    border-top-right-radius:12px;
 }
 
 .cabinet-block.last {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
     border-bottom: none;
 }
 
