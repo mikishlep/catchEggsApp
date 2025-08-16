@@ -8,8 +8,8 @@
             <div class="game-point">
                 <div class="game-image"></div>
                 <div class="game-info">
-                    <h2 class="game-name">Ловля яиц</h2>
-                    <p class="game-description">Ловите яйца, летящие с неба и получайте очки, которые вы сможете обменять на промокоды и скидки.</p>
+                    <h2 class="game-name">Главптица</h2>
+                    <p class="game-description">Помоги главптице не упасть! Летай, зарабатывай очки и обменивай их на выгодные промокоды и скидки.</p>
                     <button class="game-start">
                         <!-- <h3>Играть</h3> -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="22" viewBox="0 0 17 22" fill="white">
