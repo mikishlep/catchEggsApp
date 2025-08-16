@@ -24,8 +24,8 @@
 
 <style scoped>
 .main-wrapper {
-    padding: 20px;
-    padding-bottom: 100px;
+    padding: 10px;
+    padding-bottom: 90px;
     min-height: 100vh;
 }
 
