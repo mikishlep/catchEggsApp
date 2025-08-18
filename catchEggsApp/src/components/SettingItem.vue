@@ -16,15 +16,15 @@ function handleClick() {
 </script>
 
 <template>
-    <div class="cabinet-block" :class="{ 'first': props.isFirst, 'last': props.isLast }" @click="handleClick" tabindex="0">
+    <div class="cabinet-block" :class="{ 'first': isFirst, 'last': isLast }" @click="handleClick" tabindex="0">
         <div class="cabinet-item">
             <div class="cabinet-item__left">
-                <div class="cabinet-item__icon-wrapper" :style="{ 'backgroundColor': props.iconBackground }">
-                    <img :src="props.icon" alt="Иконка" class="cabinet-item__icon">
+                <div class="cabinet-item__icon-wrapper" :style="{ 'backgroundColor': iconBackground }">
+                    <img :src="icon" alt="Иконка" class="cabinet-item__icon">
                 </div>
-                <p>{{ props.title }}</p>
+                <p>{{ title }}</p>
             </div>
-            <img :src="props.arrow" alt="Стрелка" class="cabinet-item__arrow">
+            <img :src="arrow" alt="Стрелка" class="cabinet-item__arrow">
         </div>
     </div>
 </template>

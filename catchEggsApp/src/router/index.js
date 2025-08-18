@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 
 import Cabinet from '../pages/Cabinet/Cabinet.vue';
-import MainMenu from '../pages/MainMenu.vue';
+import MainMenu from '../pages/MainMenu/MainMenu.vue';
 
 // Чилдрены кабинета
 const Promocodes = () => import('../pages/Cabinet/Promocodes.vue');

@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted } from 'vue';
-import MainMenu from './pages/MainMenu.vue';
 import Navbar from './components/Navbar.vue';
 
 onMounted(() => {

@@ -1,15 +1,7 @@
 <script setup>
 import SettingItem from '../../components/SettingItem.vue';
 import icons from '@/assets/icons';
-
-// Сторонние сайты
-function openExternal(link) {
-  if (window.Telegram?.WebApp?.openLink) {
-    window.Telegram.WebApp.openLink(link);
-  } else {
-    window.open(link, '_blank');
-  }
-}
+import { openExternal } from "@/utils/openExternal.js";
 </script>
 
 <template>
@@ -69,8 +61,7 @@ function openExternal(link) {
 
 <style scoped>
 .main-wrapper {
-    padding: 10px;
-    padding-bottom: 90px;
+    padding: 10px 10px 90px 10px;
     min-height: 100vh;
 }
 
