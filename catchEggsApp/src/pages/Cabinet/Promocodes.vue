@@ -1,6 +1,24 @@
 <script setup>
 import PromoItem from "@/components/PromoItem.vue";
 import { promoTest } from "@/data/promoTest.js";
+
+import { initBackButton, hideBackButton } from "@/utils/telegramApi/backBtn.js";
+import { onMounted, onUnmounted } from "vue";
+import router from "@/router/index.js";
+
+onMounted(() => {
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.ready();
+
+    initBackButton(() => {
+      router.back();
+    });
+  }
+});
+
+onUnmounted(() => {
+  hideBackButton();
+});
 </script>
 
 <template>

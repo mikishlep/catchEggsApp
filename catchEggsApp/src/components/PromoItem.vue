@@ -29,7 +29,7 @@ async function handleCopy() {
         </div>
       </div>
       <div class="promo-row no-logo">
-        <button  class="promocode">
+        <button  class="promocode" @click="handleCopy">
           <span>{{ promoCode }}</span>
         </button>
         <button class="copy" @click="handleCopy">
