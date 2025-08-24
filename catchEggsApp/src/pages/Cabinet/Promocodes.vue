@@ -7,13 +7,7 @@ import { onMounted, onUnmounted } from "vue";
 import router from "@/router/index.js";
 
 onMounted(() => {
-  if (window.Telegram?.WebApp) {
-    window.Telegram.WebApp.ready();
-
-    initBackButton(() => {
-      router.back();
-    });
-  }
+  initBackButton();
 });
 
 onUnmounted(() => {

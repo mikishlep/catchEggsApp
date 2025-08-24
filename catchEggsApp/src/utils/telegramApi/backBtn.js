@@ -1,4 +1,4 @@
-// utils/telegramApi/backBtn.js
+import router from "@/router/index.js";
 
 export function initBackButton(onBack) {
     if (!window.Telegram?.WebApp) {
@@ -6,51 +6,21 @@ export function initBackButton(onBack) {
         return;
     }
 
-    // Универсальное включение кнопки назад
-    const showBackButton = () => {
-        const data = JSON.stringify({ is_visible: true });
+    const backButton = window.Telegram.WebApp.BackButton;
+    backButton.show();
 
-        // Web (iframe)
-        if (window.parent && window.parent !== window) {
-            window.parent.postMessage(
-                JSON.stringify({ eventType: 'web_app_setup_back_button', eventData: { is_visible: true } }),
-                'https://web.telegram.org'
-            );
+    backButton.onClick(() => {
+        if (typeof onBack === "function") {
+            onBack();
+        } else if (router) {
+            router.back();
+        } else {
+            console.warn("onBack не передан и router не найден");
         }
-
-        // Desktop / Mobile
-        if (window.TelegramWebviewProxy?.postEvent) {
-            window.TelegramWebviewProxy.postEvent('web_app_setup_back_button', data);
-        }
-    };
-
-    showBackButton();
-
-    // Навешиваем обработчик
-    if (typeof window.Telegram.WebApp.onEvent === 'function') {
-        window.Telegram.WebApp.onEvent('back_button_pressed', () => {
-            if (typeof onBack === 'function') onBack();
-        });
-    } else {
-        console.warn("Метод onEvent не доступен");
-    }
+    });
 }
 
 export function hideBackButton() {
     if (!window.Telegram?.WebApp) return;
-
-    const hideData = JSON.stringify({ is_visible: false });
-
-    // Web
-    if (window.parent && window.parent !== window) {
-        window.parent.postMessage(
-            JSON.stringify({ eventType: 'web_app_setup_back_button', eventData: { is_visible: false } }),
-            'https://web.telegram.org'
-        );
-    }
-
-    // Desktop / Mobile
-    if (window.TelegramWebviewProxy?.postEvent) {
-        window.TelegramWebviewProxy.postEvent('web_app_setup_back_button', hideData);
-    }
+    window.Telegram.WebApp.BackButton.hide();
 }
