@@ -16,7 +16,7 @@ export default class BaseGame {
             parent: this.container.value,
             physics: {
                 default: 'arcade',
-                arcade: { gravity: { y: 600 }, debug: true }
+                arcade: { gravity: { y: 600 }, debug: false },
             },
             scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH },
             scene: this.sceneConfig

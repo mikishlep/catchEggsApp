@@ -69,7 +69,7 @@ export default class FlappyScene extends Phaser.Scene {
     }
 
     flap() {
-        this.bird.setVelocityY(-250);
+        this.bird.setVelocityY(-350);
     }
 
     addPipes() {
@@ -98,7 +98,7 @@ export default class FlappyScene extends Phaser.Scene {
         topPipe.body.velocity.x = this.pipeSpeed;
         topPipe.body.allowGravity = false;
         topPipe.body.immovable = true;
-        topPipe.body.setSize(topPipe.width * 0.9, topPipe.height, true);  // Хитбокс чуть уже новой ширины
+        topPipe.body.setSize(topPipe.width * 0.7, topPipe.height, true);  // Хитбокс чуть уже новой ширины
 
         // Нижняя труба
         const bottomPipe = this.pipes.create(window.innerWidth + 50, topPipeY + gap, 'pipe')
@@ -107,7 +107,7 @@ export default class FlappyScene extends Phaser.Scene {
         bottomPipe.body.velocity.x = this.pipeSpeed;
         bottomPipe.body.allowGravity = false;
         bottomPipe.body.immovable = true;
-        bottomPipe.body.setSize(bottomPipe.width * 0.9, bottomPipe.height, true);  // Хитбокс чуть уже
+        bottomPipe.body.setSize(bottomPipe.width * 0.7, bottomPipe.height, true);  // Хитбокс чуть уже
     }
 
     hitPipe() {
