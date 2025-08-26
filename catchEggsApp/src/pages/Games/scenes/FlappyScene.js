@@ -93,19 +93,21 @@ export default class FlappyScene extends Phaser.Scene {
         // Верхняя труба
         const topPipe = this.pipes.create(window.innerWidth + 50, topPipeY, 'pipe')
             .setOrigin(0, 1)
-            .setFlipY(true);
+            .setFlipY(true)
+            .setScale(0.5, 1);  // Сужаем ширину в 2 раза, высота без изменений
         topPipe.body.velocity.x = this.pipeSpeed;
         topPipe.body.allowGravity = false;
         topPipe.body.immovable = true;
-        topPipe.body.setSize(topPipe.width * 0.9, topPipe.height, true);
+        topPipe.body.setSize(topPipe.width * 0.9, topPipe.height, true);  // Хитбокс чуть уже новой ширины
 
         // Нижняя труба
         const bottomPipe = this.pipes.create(window.innerWidth + 50, topPipeY + gap, 'pipe')
-            .setOrigin(0, 0);
+            .setOrigin(0, 0)
+            .setScale(0.5, 1);  // Аналогично сужаем ширину
         bottomPipe.body.velocity.x = this.pipeSpeed;
         bottomPipe.body.allowGravity = false;
         bottomPipe.body.immovable = true;
-        bottomPipe.body.setSize(bottomPipe.width * 0.9, bottomPipe.height, true);
+        bottomPipe.body.setSize(bottomPipe.width * 0.9, bottomPipe.height, true);  // Хитбокс чуть уже
     }
 
     hitPipe() {
