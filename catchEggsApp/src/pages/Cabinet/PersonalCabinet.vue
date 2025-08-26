@@ -98,12 +98,12 @@ import { openExternal } from "@/utils/openExternal.js";
 
 .cabinet-container {
   display: grid;
-  gap: 20px
+  gap: 10px
 }
 
 .cabinet-btns {
   display: grid;
-  gap: 20px;
+  gap: 10px;
 }
 
 .cabinet-btns__container {

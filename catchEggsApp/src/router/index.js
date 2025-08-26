@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import Cabinet from '../pages/Cabinet/Cabinet.vue';
 import MainMenu from '../pages/MainMenu/MainMenu.vue';
 import PersonalCabinet from "@/pages/Cabinet/PersonalCabinet.vue";
+import Glavbird from "@/pages/Games/Glavbird.vue";
 
 // Чилдрены кабинета
 const Promocodes = () => import('../pages/Cabinet/Promocodes.vue');
@@ -17,6 +18,7 @@ const routes = [
           { path: 'settings', component: Settings},
       ]
     },
+    { path: '/glavbird', component: Glavbird },
 ];
 
 const router = createRouter({
