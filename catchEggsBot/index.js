@@ -26,11 +26,10 @@ bot.callbackQuery("support", async ctx => {
 bot.on("message:text", async (ctx) => {
     const userId = ctx.from.id;
 
-    // Логика админа
+    // админская логика
     if (userId === ADMIN_ID && ctx.message.reply_to_message) {
         const originalText = ctx.message.reply_to_message.text;
 
-        // Извлекаем ID пользователя из исходного текста
         const match = originalText.match(/ID: (\d+)/);
         const targetUserId = match ? Number(match[1]) : null;
 
@@ -65,11 +64,10 @@ bot.on("message:text", async (ctx) => {
 bot.callbackQuery(/end_(\d+)$/, async (ctx) => {
     await ctx.answerCallbackQuery();
     const targetUserId = Number(ctx.match[1]);
-    // Удаляем сессию
+    // закрытие сессии
     supportSessions.delete(targetUserId);
-    // Уведомляем админа
     await ctx.reply(`Сессия с пользователем ${targetUserId} завершена.`);
-    // Уведомляем пользователя
+
     await bot.api.sendMessage(
       targetUserId,
       "Оператор завершил чат. Если понадобится помощь — нажмите «Написать нам»."
