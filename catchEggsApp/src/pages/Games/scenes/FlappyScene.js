@@ -16,6 +16,9 @@ export default class FlappyScene extends Phaser.Scene {
     }
 
     create() {
+        this.score = 0;
+        this._uiShown = false;
+
         // фон
         this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'bg')
             .setDisplaySize(window.innerWidth, window.innerHeight);
@@ -26,7 +29,7 @@ export default class FlappyScene extends Phaser.Scene {
             .setOrigin(0.5);
 
         this.bird.setCollideWorldBounds(true);
-        this.bird.body.setSize(this.bird.width * 0.8, this.bird.height * 0.8, true);
+        this.bird.body.setSize(this.bird.width * 0.7, this.bird.height * 0.7, true);
 
         // трубы
         this.pipes = this.physics.add.group();
