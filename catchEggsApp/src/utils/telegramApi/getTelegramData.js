@@ -17,3 +17,13 @@ export function getRawData() {
 
     return tg.initDataUnsafe;
 }
+
+export function getInitData() {
+    const tg = window.Telegram.WebApp;
+
+    if (!tg.initData) {
+        return null;
+    }
+
+    return tg.initData;
+}

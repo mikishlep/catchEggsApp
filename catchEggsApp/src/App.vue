@@ -14,6 +14,7 @@ onMounted(() => {
   userStore.loadUser();
   console.log("ТГ данные юзера:", userStore.user);
   console.log("ТГ полные данные:", userStore.raw);
+  console.log("ТГ инит дата:", userStore.initData);
 });
 </script>
 
