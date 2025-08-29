@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@telegram-apps/sdk": "^3.11.4",
+    "axios": "^1.11.0",
     "phaser": "^3.90.0",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.4.1",
