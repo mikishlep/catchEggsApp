@@ -6,12 +6,17 @@ export const useUserStore = defineStore('user', {
         user: null, // тут чисто сам юзер
         raw: null, // если что тут будет хранение всего initDataUnsafe в сыром виде
         initData: null,
+        providerData: null,
     }),
     actions: {
         loadUser() {
             this.user = getUserData();
             this.raw = getRawData();
             this.initData = getInitData();
+        },
+        setUserData(userData, providerData) {
+            this.user = userData;
+            this.providerData = providerData;
         }
     }
 })

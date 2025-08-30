@@ -33,4 +33,4 @@ class ApiClient {
     }
 }
 
-export const api = new ApiClient("БУДУЩИЙ АПИ ЮРЛ");
+export const api = new ApiClient(import.meta.env.VITE_API_URL);

@@ -1,13 +1,20 @@
-import { createApp } from 'vue'
-import router from './router'
-import { createPinia } from 'pinia'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import router from './router';
+import { createPinia } from 'pinia';
+import './style.css';
+import App from './App.vue';
+import { autoRegister } from "@/services/authService.js";
 
-const app = createApp(App);
+async function bootstrap() {
+    const app = createApp(App);
 
-const pinia = createPinia();
+    const pinia = createPinia();
+    app.use(pinia);
+    app.use(router);
 
-app.use(router);
-app.use(pinia);
-app.mount('#app')
+    await autoRegister();
+
+    app.mount('#app');
+}
+
+bootstrap();
