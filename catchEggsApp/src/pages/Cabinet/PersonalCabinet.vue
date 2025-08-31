@@ -2,14 +2,30 @@
 import SettingItem from "@/components/SettingItem.vue";
 import icons from '@/assets/icons';
 import { openExternal } from "@/utils/openExternal.js";
+import { useUserStore } from "@/stores/user.js";
+import { storeToRefs } from "pinia";
+import { computed } from "vue";
+
+const userStore = useUserStore();
+const { providerData } = storeToRefs(userStore);
+
+const displayName = computed(() => {
+  const p = providerData.value;
+  if (p?.first_name || p?.last_name) {
+    return `${p?.first_name ?? ''} ${p?.last_name ?? ''}`.trim();
+  }
+  return p?.username || "Без имени";
+});
 </script>
 
 <template>
   <div class="cabinet-container">
     <div class="person-header">
       <div class="person-info">
-        <div class="person-photo"></div>
-        <div class="person-name">Глеб Цейлонский</div>
+        <div class="person-photo">
+          <img v-if="providerData?.photo_url" :src="providerData.photo_url" alt="Фото профиля">
+        </div>
+        <div class="person-name">{{ displayName }}</div>
       </div>
     </div>
 
@@ -88,6 +104,16 @@ import { openExternal } from "@/utils/openExternal.js";
   height: 100px;
   background-color: #fff;
   border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .person-name {
