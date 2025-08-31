@@ -44,7 +44,7 @@ const displayName = computed(() => {
       <div class="cabinet-btns__container">
         <SettingItem
             title="Главреклама"
-            :icon="icons.user"
+            :icon="icons.link"
             :arrow="icons.arrow"
             :isFirst="true"
             iconBackground="#dedede"
@@ -52,13 +52,13 @@ const displayName = computed(() => {
         />
         <SettingItem
             title="Главвизитка"
-            :icon="icons.user"
+            :icon="icons.link"
             :arrow="icons.arrow"
             iconBackground="#dedede"
             @click="openExternal('https://glavvizitka.ru')"
         />
       </div>
-      <div class="cabinet-btns__container">
+      <div class="cabinet-btns__container" style="display: none">
         <SettingItem
             title="Настройки"
             :icon="icons.user"

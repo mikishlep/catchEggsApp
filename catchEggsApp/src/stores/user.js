@@ -3,10 +3,11 @@ import { getUserData, getRawData, getInitData } from "@/utils/telegramApi/getTel
 
 export const useUserStore = defineStore('user', {
     state: () => ({
-        user: null, // тут чисто сам юзер
+        user: {}, // тут чисто сам юзер
         raw: null, // если что тут будет хранение всего initDataUnsafe в сыром виде
         initData: null,
         providerData: null,
+        coupons: [],
     }),
     actions: {
         loadUser() {
@@ -15,8 +16,15 @@ export const useUserStore = defineStore('user', {
             this.initData = getInitData();
         },
         setUserData(userData, providerData) {
-            this.user = userData;
-            this.providerData = providerData;
+            this.user = {
+                ...this.user,
+                ...userData,
+                userId: userData.idUser ?? null,
+            };
+            this.providerData = providerData ?? {};
+        },
+        setCoupons(coupons) {
+            this.coupons = coupons;
         }
     }
 })
