@@ -33,7 +33,7 @@ const displayName = computed(() => {
       <div class="cabinet-btns__container">
         <SettingItem
             title="Мои промокоды"
-            :icon="icons.user"
+            :icon="icons.promo"
             :arrow="icons.arrow"
             :isFirst="true"
             :isLast="true"

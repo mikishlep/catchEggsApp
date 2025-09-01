@@ -3,6 +3,7 @@ import arrowIcon from './arrow.svg'
 import playIcon from './play.svg'
 import gamepadIcon from './gamepad.svg'
 import linkIcon from './link.svg'
+import promoIcon from './promo.svg'
 
 export default {
     user: userIcon,
@@ -10,4 +11,5 @@ export default {
     play: playIcon,
     gamepad: gamepadIcon,
     link: linkIcon,
+    promo: promoIcon
 }

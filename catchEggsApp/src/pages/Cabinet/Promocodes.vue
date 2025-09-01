@@ -1,7 +1,6 @@
 <script setup>
 import PromoItem from "@/components/PromoItem.vue";
 import { promoTest } from "@/data/promoTest.js";
-
 import { initBackButton, hideBackButton } from "@/utils/telegramApi/backBtn.js";
 import { onMounted, onUnmounted } from "vue";
 import router from "@/router/index.js";
