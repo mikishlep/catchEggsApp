@@ -83,6 +83,7 @@ const displayName = computed(() => {
   background-color: var(--main-color);
   position: relative;
   box-shadow: var(--main-shadow);
+  border: 1px solid #ddd;
 }
 
 .person-info {

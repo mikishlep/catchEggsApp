@@ -36,6 +36,7 @@ function handleClick() {
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: var(--main-shadow);
+  border: 1px solid #ddd;
 }
 
 .game-image {
