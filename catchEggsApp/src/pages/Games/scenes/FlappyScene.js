@@ -66,6 +66,10 @@ export default class FlappyScene extends Phaser.Scene {
             }
         });
 
+        if (this.game?.events) {
+            this.game.events.emit('scoreUpdate', Math.floor(this.score));
+        }
+
         if (this.bird.y > window.innerHeight || this.bird.y < 0) {
             this.hitPipe();
         }

@@ -2,7 +2,7 @@
 import PromoItem from "@/components/PromoItem.vue";
 import { promoTest } from "@/data/promoTest.js";
 import { initBackButton, hideBackButton } from "@/utils/telegramApi/backBtn.js";
-import { onMounted, onUnmounted, computed } from "vue";
+import { onMounted, onUnmounted, computed, ref } from "vue";
 import router from "@/router/index.js";
 import { useUserStore } from "@/stores/user.js";
 import { createCoupon } from "@/services/promoService.js";
@@ -25,6 +25,12 @@ async function handleCreateCoupon() {
     userStore.setCoupons([...userStore.coupons, newCoupon]);
   }
 }
+
+function formatPromoCompany(coupon) {
+  if (!coupon) return '';
+  const suffix = coupon.promoCount === 0 ? '%' : '₽';
+  return `${coupon.name} ${coupon.description}${suffix}`;
+}
 </script>
 
 <template>
@@ -32,7 +38,7 @@ async function handleCreateCoupon() {
     <PromoItem
         v-for="coupon in coupons"
         :key="coupon.id"
-        :promoCompany="coupon.name"
+        :promoCompany="formatPromoCompany(coupon)"
         :promoLogo="coupon.promoLogo || null"
         :promoText="coupon.description"
         :promoCode="coupon.tokenHash"
@@ -56,7 +62,7 @@ async function handleCreateCoupon() {
   display: flex;
   color: #fff;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.875rem;
   justify-content: center;
   text-align: center;
   align-items: center;

@@ -31,7 +31,7 @@ async function handleCopy() {
         </div>
         <div class="promo-content">
           <h3>{{ promoCompany }}</h3>
-          <p>{{ promoText }}</p>
+<!--          <p>{{ promoText }}</p>-->
         </div>
       </div>
       <div class="promo-row no-logo">
@@ -62,7 +62,7 @@ async function handleCopy() {
 
 .promo-row {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   padding: 10px;
   gap: 10px;
 }
@@ -75,8 +75,8 @@ async function handleCopy() {
 }
 
 .promo-logo svg {
-  width: 80px;
-  height: 80px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
