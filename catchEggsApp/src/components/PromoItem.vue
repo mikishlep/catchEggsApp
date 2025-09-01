@@ -22,7 +22,13 @@ async function handleCopy() {
   <div class="promo-item">
     <div class="promo-grid">
       <div class="promo-row">
-        <img :src="promoLogo" alt="Логотип">
+        <div class="promo-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 512 512">
+            <path d="M110.76,512L456.019,243.343,209.316,0Z" fill="var(--main-color)"></path>
+            <path d="M29.981,482.6l79.531-40.285,28.694-152.975Z" fill="var(--main-color)"></path>
+            <path d="M286.664,1.088l-14.97,34.569,119.764,125.21" fill="var(--main-color)"></path>
+          </svg>
+        </div>
         <div class="promo-content">
           <h3>{{ promoCompany }}</h3>
           <p>{{ promoText }}</p>
@@ -66,6 +72,12 @@ async function handleCopy() {
   height: 80px;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.promo-logo svg {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .promo-content {

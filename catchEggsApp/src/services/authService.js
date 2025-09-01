@@ -21,6 +21,8 @@ export async function autoRegister() {
         localStorage.setItem("refreshToken", tokenUser.refresh_token || "");
 
         userStore.setUserData(userData, provideData);
+
+        localStorage.setItem("userId", userStore.user.userId);
     } catch (err) {
         console.error("Ошибка регистрации:", err.response?.data || err.message);
     }

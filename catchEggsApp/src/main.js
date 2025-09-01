@@ -20,6 +20,8 @@ async function bootstrap() {
     const coupons = await loadUserCoupons();
     userStore.setCoupons(coupons);
 
+    console.log(userStore)
+
     app.mount('#app');
 }
 
