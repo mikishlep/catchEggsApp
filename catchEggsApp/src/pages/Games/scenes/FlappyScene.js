@@ -224,6 +224,9 @@ export default class FlappyScene extends Phaser.Scene {
 
         // кнопка "Заново" — в цвете темы
         const retryBtn = makeButton(10, mainColor, 'Заново', () => {
+            // Эмитим событие с финальным счетом перед рестартом
+            this.game.events.emit('gameOver', Math.floor(this.score));
+            
             // очистка UI
             dim.destroy();
             ui.destroy();
@@ -235,6 +238,9 @@ export default class FlappyScene extends Phaser.Scene {
 
         // кнопка "Главная" — светло-серая как у иконок (#dedede)
         const homeBtn = makeButton(75, 0xDEDEDE, 'Главная', () => {
+            // Эмитим событие с финальным счетом перед выходом
+            this.game.events.emit('gameOver', Math.floor(this.score));
+            
             // вариант 1: событие наружу (удобно перехватить во Vue)
             this.game.events.emit('goHomeFromGame');
 

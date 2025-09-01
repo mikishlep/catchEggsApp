@@ -9,6 +9,7 @@ import { createCoupon } from "@/services/promoService.js";
 
 onMounted(() => {
   initBackButton();
+  userStore.loadGlavbirdScore();
 });
 
 onUnmounted(() => {
@@ -18,6 +19,8 @@ onUnmounted(() => {
 const userStore = useUserStore();
 
 const coupons = computed(() => userStore.coupons);
+const currentScore = computed(() => userStore.getCurrentScore);
+const canGetPromo = computed(() => currentScore.value >= 15);
 
 async function handleCreateCoupon() {
   const newCoupon = await createCoupon();
@@ -35,6 +38,30 @@ function formatPromoCompany(coupon) {
 
 <template>
   <div class="promo-container">
+    <div class="score-card">
+      <div class="score-header">
+        <h3>Игра Главптица</h3>
+        <div class="score-display">
+          <span class="score-number">{{ currentScore }}</span>
+          <span class="score-label">очков</span>
+        </div>
+      </div>
+      <div class="score-progress">
+        <div class="progress-bar">
+          <div 
+            class="progress-fill" 
+            :style="{ width: Math.min((currentScore / 15) * 100, 100) + '%' }"
+          ></div>
+        </div>
+        <p class="progress-text" v-if="!canGetPromo">
+          Наберите {{ 15 - currentScore }} очков для получения промокода
+        </p>
+        <p class="progress-text success" v-else>
+          ✨ Поздравляем! Вы можете получить промокод
+        </p>
+      </div>
+    </div>
+
     <PromoItem
         v-for="coupon in coupons"
         :key="coupon.id"
@@ -43,8 +70,15 @@ function formatPromoCompany(coupon) {
         :promoText="coupon.description"
         :promoCode="coupon.tokenHash"
     />
-    <button class="create-coupon" @click="handleCreateCoupon">
-      <span>Получить промокод</span>
+
+    <button 
+      class="create-coupon" 
+      :class="{ disabled: !canGetPromo }"
+      @click="handleCreateCoupon"
+      :disabled="!canGetPromo"
+    >
+      <span v-if="canGetPromo">Получить промокод</span>
+      <span v-else>Наберите {{ 15 - currentScore }} очков</span>
     </button>
   </div>
 </template>
@@ -53,6 +87,75 @@ function formatPromoCompany(coupon) {
 .promo-container {
   display: grid;
   gap: 20px
+}
+
+.score-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.score-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.score-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e7474c;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e7474c 0%, #ff6b6b 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+.progress-text.success {
+  color: #059669;
+  font-weight: 500;
 }
 
 .create-coupon {
@@ -66,7 +169,21 @@ function formatPromoCompany(coupon) {
   justify-content: center;
   text-align: center;
   align-items: center;
-  padding: 10px 0;
+  padding: 12px 0;
   cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.create-coupon:hover:not(.disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.create-coupon.disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
 }
 </style>
