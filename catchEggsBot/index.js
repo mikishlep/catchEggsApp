@@ -8,7 +8,7 @@ const ADMIN_ID = Number(process.env.ADMIN_ID);
 bot.command("start", async (ctx) => {
     const keyboard = new InlineKeyboard().text("📩 Написать нам", "support");
     await ctx.replyWithPhoto(
-      new InputFile("img/glavskidaLogo.jpg"),
+      new InputFile("img/glavLogo.png"),
       {
         caption: `<b>Добро пожаловать, вас приветствует бот компании "Главреклама"!</b>\n\nДля доступа к скидкам, пожалуйста, нажмите кнопку старта приложения в нижнем левом углу.`,
         parse_mode: "HTML",
