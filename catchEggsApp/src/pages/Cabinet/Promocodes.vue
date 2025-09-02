@@ -7,20 +7,16 @@ import router from "@/router/index.js";
 import { useUserStore } from "@/stores/user.js";
 import { createCoupon } from "@/services/promoService.js";
 
+const userStore = useUserStore();
+
 onMounted(() => {
   initBackButton();
   userStore.loadGlavbirdScore();
-  
-  if (daysSinceLastCoupon.value >= 7 && currentScore.value > 0) {
-    userStore.setGlavbirdScore(0);
-  }
 });
 
 onUnmounted(() => {
   hideBackButton();
 });
-
-const userStore = useUserStore();
 
 const coupons = computed(() => userStore.coupons);
 const currentScore = computed(() => userStore.getCurrentScore);
