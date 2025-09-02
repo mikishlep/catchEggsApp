@@ -57,7 +57,7 @@ function formatPromoCompany(coupon) {
           Наберите {{ 15 - currentScore }} очков для получения промокода
         </p>
         <p class="progress-text success" v-else>
-          ✨ Поздравляем! Вы можете получить промокод
+          Поздравляем! Вы можете получить промокод
         </p>
       </div>
     </div>
@@ -154,7 +154,7 @@ function formatPromoCompany(coupon) {
 }
 
 .progress-text.success {
-  color: #059669;
+  color: #bdbdbd;
   font-weight: 500;
 }
 
