@@ -47,6 +47,7 @@ async function handleCreateCoupon() {
   const newCoupon = await createCoupon();
   if (newCoupon) {
     userStore.setCoupons([...userStore.coupons, newCoupon]);
+    userStore.setGlavbirdScore(0);
   }
 }
 
