@@ -20,7 +20,28 @@ const userStore = useUserStore();
 
 const coupons = computed(() => userStore.coupons);
 const currentScore = computed(() => userStore.getCurrentScore);
-const canGetPromo = computed(() => currentScore.value >= 15);
+
+const lastCouponDate = computed(() => {
+  if (coupons.value.length === 0) return null;
+  const sortedCoupons = [...coupons.value].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  return new Date(sortedCoupons[0].createdAt);
+});
+
+const daysSinceLastCoupon = computed(() => {
+  if (!lastCouponDate.value) return 7;
+  const now = new Date();
+  const diffTime = now - lastCouponDate.value;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+});
+
+const daysUntilNextCoupon = computed(() => {
+  return Math.max(0, 7 - daysSinceLastCoupon.value);
+});
+
+const canGetPromo = computed(() => {
+  return currentScore.value >= 15 && daysSinceLastCoupon.value >= 7;
+});
 
 async function handleCreateCoupon() {
   const newCoupon = await createCoupon();
@@ -53,8 +74,11 @@ function formatPromoCompany(coupon) {
             :style="{ width: Math.min((currentScore / 15) * 100, 100) + '%' }"
           ></div>
         </div>
-        <p class="progress-text" v-if="!canGetPromo">
+        <p class="progress-text" v-if="currentScore < 15">
           Наберите {{ 15 - currentScore }} очков для получения промокода
+        </p>
+        <p class="progress-text" v-else-if="daysUntilNextCoupon > 0">
+          До нового промокода: {{ daysUntilNextCoupon }} дней
         </p>
         <p class="progress-text success" v-else>
           Поздравляем! Вы можете получить промокод
@@ -78,7 +102,8 @@ function formatPromoCompany(coupon) {
       :disabled="!canGetPromo"
     >
       <span v-if="canGetPromo">Получить промокод</span>
-      <span v-else>Наберите {{ 15 - currentScore }} очков</span>
+      <span v-else-if="currentScore < 15">Наберите {{ 15 - currentScore }} очков</span>
+      <span v-else>Промокод через {{ daysUntilNextCoupon }} дней</span>
     </button>
   </div>
 </template>
