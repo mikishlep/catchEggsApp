@@ -10,7 +10,7 @@ export function register(initData) {
         payload: initData
     });
 
-    return api.post("/auth/register_provider", data, {
+    return api.post("/auth/register_provider?oauth_client=telegram-app", data, {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
