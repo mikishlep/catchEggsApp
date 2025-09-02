@@ -18,12 +18,21 @@ onUnmounted(() => {
   hideBackButton();
 });
 
-const coupons = computed(() => userStore.coupons);
+const validCoupons = computed(() => {
+  const now = new Date();
+  return userStore.coupons.filter(coupon => {
+    const couponDate = new Date(coupon.createdAt);
+    const daysDiff = Math.floor((now - couponDate) / (1000 * 60 * 60 * 24));
+    return daysDiff < 7;
+  });
+});
+
+const coupons = computed(() => validCoupons.value);
 const currentScore = computed(() => userStore.getCurrentScore);
 
 const lastCouponDate = computed(() => {
-  if (coupons.value.length === 0) return null;
-  const sortedCoupons = [...coupons.value].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  if (userStore.coupons.length === 0) return null;
+  const sortedCoupons = [...userStore.coupons].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   return new Date(sortedCoupons[0].createdAt);
 });
 
@@ -39,7 +48,15 @@ const daysUntilNextCoupon = computed(() => {
   return Math.max(0, 7 - daysSinceLastCoupon.value);
 });
 
+const shouldResetScore = computed(() => {
+  return daysSinceLastCoupon.value >= 7 && userStore.coupons.length > 0;
+});
+
 const canGetPromo = computed(() => {
+  if (shouldResetScore.value && currentScore.value > 0) {
+    userStore.setGlavbirdScore(0);
+    return false;
+  }
   return currentScore.value >= 15 && daysSinceLastCoupon.value >= 7;
 });
 
