@@ -23,8 +23,8 @@ const validCoupons = computed(() => {
   const now = new Date();
   return userStore.coupons.filter(coupon => {
     const couponDate = new Date(coupon.createdAt);
-    const minutesDiff = Math.floor((now - couponDate) / (1000 * 60));
-    return minutesDiff < 2;
+    const daysDiff = Math.floor((now - couponDate) / (1000 * 60 * 60 * 24));
+    return daysDiff < 7;
   });
 });
 
@@ -38,19 +38,19 @@ const lastCouponDate = computed(() => {
 });
 
 const daysSinceLastCoupon = computed(() => {
-  if (!lastCouponDate.value) return 2;
+  if (!lastCouponDate.value) return 7;
   const now = new Date();
   const diffTime = now - lastCouponDate.value;
-  const minutesDiff = Math.floor(diffTime / (1000 * 60));
-  return minutesDiff;
+  const daysDiff = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  return daysDiff;
 });
 
 const daysUntilNextCoupon = computed(() => {
-  return Math.max(0, 2 - daysSinceLastCoupon.value);
+  return Math.max(0, 7 - daysSinceLastCoupon.value);
 });
 
 const shouldResetScore = computed(() => {
-  return daysSinceLastCoupon.value >= 2 && userStore.coupons.length > 0;
+  return daysSinceLastCoupon.value >= 7 && userStore.coupons.length > 0;
 });
 
 watch(shouldResetScore, (newValue) => {
@@ -63,7 +63,7 @@ watch(shouldResetScore, (newValue) => {
 });
 
 const canGetPromo = computed(() => {
-  return currentScore.value >= 15 && daysSinceLastCoupon.value >= 2;
+  return currentScore.value >= 15 && daysSinceLastCoupon.value >= 7;
 });
 
 async function handleCreateCoupon() {
@@ -101,7 +101,7 @@ function formatPromoCompany(coupon) {
           Наберите {{ 15 - currentScore }} очков для получения промокода
         </p>
         <p class="progress-text" v-else-if="daysUntilNextCoupon > 0">
-          До нового промокода: {{ daysUntilNextCoupon }} минут
+          До нового промокода: {{ daysUntilNextCoupon }} дней
         </p>
         <p class="progress-text success" v-else>
           Поздравляем! Вы можете получить промокод
@@ -126,7 +126,7 @@ function formatPromoCompany(coupon) {
     >
       <span v-if="canGetPromo">Получить промокод</span>
       <span v-else-if="currentScore < 15">Наберите {{ 15 - currentScore }} очков</span>
-      <span v-else>Промокод через {{ daysUntilNextCoupon }} минут</span>
+      <span v-else>Промокод через {{ daysUntilNextCoupon }} дней</span>
     </button>
   </div>
 </template>
