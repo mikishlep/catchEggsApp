@@ -2,12 +2,13 @@
 import PromoItem from "@/components/PromoItem.vue";
 import { promoTest } from "@/data/promoTest.js";
 import { initBackButton, hideBackButton } from "@/utils/telegramApi/backBtn.js";
-import { onMounted, onUnmounted, computed, ref } from "vue";
+import { onMounted, onUnmounted, computed, ref, watch } from "vue";
 import router from "@/router/index.js";
 import { useUserStore } from "@/stores/user.js";
 import { createCoupon } from "@/services/promoService.js";
 
 const userStore = useUserStore();
+const hasResetScore = ref(false);
 
 onMounted(() => {
   initBackButton();
@@ -22,8 +23,8 @@ const validCoupons = computed(() => {
   const now = new Date();
   return userStore.coupons.filter(coupon => {
     const couponDate = new Date(coupon.createdAt);
-    const daysDiff = Math.floor((now - couponDate) / (1000 * 60 * 60 * 24));
-    return daysDiff < 7;
+    const minutesDiff = Math.floor((now - couponDate) / (1000 * 60));
+    return minutesDiff < 2;
   });
 });
 
@@ -37,27 +38,32 @@ const lastCouponDate = computed(() => {
 });
 
 const daysSinceLastCoupon = computed(() => {
-  if (!lastCouponDate.value) return 7;
+  if (!lastCouponDate.value) return 2;
   const now = new Date();
   const diffTime = now - lastCouponDate.value;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
+  const minutesDiff = Math.floor(diffTime / (1000 * 60));
+  return minutesDiff;
 });
 
 const daysUntilNextCoupon = computed(() => {
-  return Math.max(0, 7 - daysSinceLastCoupon.value);
+  return Math.max(0, 2 - daysSinceLastCoupon.value);
 });
 
 const shouldResetScore = computed(() => {
-  return daysSinceLastCoupon.value >= 7 && userStore.coupons.length > 0;
+  return daysSinceLastCoupon.value >= 2 && userStore.coupons.length > 0;
+});
+
+watch(shouldResetScore, (newValue) => {
+  if (newValue && currentScore.value > 0 && !hasResetScore.value) {
+    userStore.setGlavbirdScore(0);
+    hasResetScore.value = true;
+  } else if (!newValue) {
+    hasResetScore.value = false;
+  }
 });
 
 const canGetPromo = computed(() => {
-  if (shouldResetScore.value && currentScore.value > 0) {
-    userStore.setGlavbirdScore(0);
-    return false;
-  }
-  return currentScore.value >= 15 && daysSinceLastCoupon.value >= 7;
+  return currentScore.value >= 15 && daysSinceLastCoupon.value >= 2;
 });
 
 async function handleCreateCoupon() {
@@ -95,7 +101,7 @@ function formatPromoCompany(coupon) {
           Наберите {{ 15 - currentScore }} очков для получения промокода
         </p>
         <p class="progress-text" v-else-if="daysUntilNextCoupon > 0">
-          До нового промокода: {{ daysUntilNextCoupon }} дней
+          До нового промокода: {{ daysUntilNextCoupon }} минут
         </p>
         <p class="progress-text success" v-else>
           Поздравляем! Вы можете получить промокод
@@ -120,7 +126,7 @@ function formatPromoCompany(coupon) {
     >
       <span v-if="canGetPromo">Получить промокод</span>
       <span v-else-if="currentScore < 15">Наберите {{ 15 - currentScore }} очков</span>
-      <span v-else>Промокод через {{ daysUntilNextCoupon }} дней</span>
+      <span v-else>Промокод через {{ daysUntilNextCoupon }} минут</span>
     </button>
   </div>
 </template>
