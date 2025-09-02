@@ -10,6 +10,10 @@ import { createCoupon } from "@/services/promoService.js";
 onMounted(() => {
   initBackButton();
   userStore.loadGlavbirdScore();
+  
+  if (daysSinceLastCoupon.value >= 7 && currentScore.value > 0) {
+    userStore.setGlavbirdScore(0);
+  }
 });
 
 onUnmounted(() => {
@@ -47,7 +51,6 @@ async function handleCreateCoupon() {
   const newCoupon = await createCoupon();
   if (newCoupon) {
     userStore.setCoupons([...userStore.coupons, newCoupon]);
-    userStore.setGlavbirdScore(0);
   }
 }
 
